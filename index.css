@@ -1,0 +1,41 @@
+body {
+    background-color: #f8fafc;
+    /* slate-50 */
+}
+
+.dark body {
+    background-color: #0a0a0c;
+    /* background-dark */
+    color: #f1f5f9;
+    /* slate-100 */
+}
+
+/* Fallback for prose to ensure good formatting even if CDN plugin delays */
+.prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #0f172a;
+}
+
+.dark .prose h2 {
+    color: #ffffff;
+}
+
+.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.dark .prose p {
+    color: #cbd5e1;
+}
+
+.prose strong {
+    font-weight: 700;
+    color: #00f2ff;
+    /* primary */
+}

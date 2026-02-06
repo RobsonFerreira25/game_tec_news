@@ -1,0 +1,6 @@
+# Cole aqui os links das notícias que você deseja adicionar ao site.
+# Um link por linha.
+# Depois, peça para o Antigravity processar ou use o script update_news.py.
+# Antigravity processe os links e extraia as informações necessárias e atualize o arquivo news.json.
+
+# Lote de 05/02/2026 - PROCESSADO ✅
