@@ -1,37 +1,56 @@
-name: Deploy to Hostinger
+name: Deploy Lovable via FTP na Hostinger
 
 on:
   push:
-    branches:
-      - main # Garanta que este é o nome da sua branch principal
+    branches: ["main"]
+  workflow_dispatch: {}
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🚚 Checkout do Código
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 🛠️ Configurar Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
+          node-version: "18"
+          cache: "npm"
 
-      - name: 📦 Instalar Dependências
-        run: npm install
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
 
-      - name: 🏗️ Build do Projeto
+      - name: Build
         run: npm run build
 
-      - name: 🚀 Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Create SPA .htaccess
+        run: |
+          cat > dist/.htaccess << 'EOF'
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteBase /
+            RewriteRule ^index\.html$ - [L]
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . /index.html [L]
+          </IfModule>
+          EOF
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
+          port: 21
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          local-dir: ./dist/ 
-          server-dir: /home/u619424515/domains/gametecnews.com/public_html/ # Ajuste se o seu site estiver em uma subpasta
-          dangerous-clean-slate: false # Define como true se quiser apagar arquivos antigos que não estão no dist
+          local-dir: dist/
+          server-dir: /
+          dangerous-clean-slate: false
+          dry-run: false
+          log-level: verbose
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
