@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import newsData from '../data/news.json';
 import ImageWithCredit from '../components/ImageWithCredit';
+import CommentsSection from '../components/CommentsSection';
 
 interface NewsItem {
     title: string;
@@ -117,6 +118,9 @@ const NewsView: React.FC = () => {
                             </p>
                             <p className="text-slate-500 mt-2 text-xs">Créditos: {news.sourceName || 'Veículo de Imprensa'}</p>
                         </footer>
+
+                        {/* Comments Section */}
+                        <CommentsSection articleSlug={slug || 'featured'} />
                     </article>
                 </div>
 

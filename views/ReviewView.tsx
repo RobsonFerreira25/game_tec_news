@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ImageWithCredit from '../components/ImageWithCredit';
+import CommentsSection from '../components/CommentsSection';
 
 const ReviewView: React.FC = () => {
   return (
@@ -177,6 +178,9 @@ const ReviewView: React.FC = () => {
               ))}
             </div>
           </section>
+
+          {/* Comments Section */}
+          <CommentsSection articleSlug="review-logitech-g502-hero" />
         </div>
 
         {/* Sidebar Review Page */}
