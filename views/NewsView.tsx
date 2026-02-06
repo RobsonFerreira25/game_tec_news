@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import newsData from '../data/news.json';
+import ImageWithCredit from '../components/ImageWithCredit';
 
 interface NewsItem {
     title: string;
@@ -82,9 +83,10 @@ const NewsView: React.FC = () => {
                         </header>
 
                         <div className="rounded-2xl overflow-hidden shadow-2xl aspect-video bg-slate-900 border border-white/5">
-                            <img
+                            <ImageWithCredit
                                 src={displayImage}
                                 alt={news.title}
+                                credit={news.imgCredit}
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80";

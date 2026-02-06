@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import dealsData from '../data/deals.json';
+import ImageWithCredit from './ImageWithCredit';
 
 const Sidebar: React.FC = () => {
   const hotDeals = dealsData.slice(0, 2);
@@ -22,10 +23,11 @@ const Sidebar: React.FC = () => {
           {hotDeals.map((item, i) => (
             <a href={item.link} target="_blank" rel="noopener noreferrer" key={i} className="flex gap-4 group cursor-pointer">
               <div className="w-20 h-20 flex-shrink-0 bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden border border-slate-100 dark:border-white/5 p-1 relative">
-                <img
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                <ImageWithCredit
                   src={item.image}
+                  alt={item.title}
+                  credit={item.imgCredit}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80";
                   }}
@@ -56,7 +58,12 @@ const Sidebar: React.FC = () => {
           <span className="material-symbols-outlined text-secondary fill-current">auto_awesome</span> Para Você
         </h3>
         <div className="bg-slate-50 dark:bg-white/5 rounded-xl p-4 border border-slate-100 dark:border-white/5">
-          <img alt="Monitor Review" className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all" src="https://picsum.photos/id/30/400/250" />
+          <ImageWithCredit
+            src="https://picsum.photos/id/30/400/250"
+            alt="Monitor Review"
+            credit="Divulgação"
+            className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all"
+          />
           <h4 className="font-bold text-base mb-2">Alienware AW3423DW QD-OLED</h4>
           <div className="flex items-center gap-1 text-yellow-500 mb-4">
             {[1, 2, 3, 4].map(s => <span key={s} className="material-symbols-outlined text-sm font-bold fill-current">star</span>)}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dealsData from '../data/deals.json';
+import ImageWithCredit from '../components/ImageWithCredit';
 
 const DealsView: React.FC = () => {
     const [deals, setDeals] = useState<any[]>([]);
@@ -48,9 +49,10 @@ const DealsView: React.FC = () => {
                 {filteredDeals.map((deal) => (
                     <div key={deal.id} className="bg-white dark:bg-card-dark rounded-2xl overflow-hidden border border-slate-200 dark:border-white/5 shadow-xl group hover:border-primary/30 transition-all flex flex-col">
                         <div className="relative aspect-video overflow-hidden bg-slate-900 flex items-center justify-center">
-                            <img
+                            <ImageWithCredit
                                 src={deal.image}
                                 alt={deal.title}
+                                credit={deal.imgCredit}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80";

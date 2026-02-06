@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ImageWithCredit from '../components/ImageWithCredit';
 
 const ReviewView: React.FC = () => {
   return (
@@ -125,14 +126,24 @@ const ReviewView: React.FC = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-10">
               <div className="rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer">
-                <img className="w-full aspect-video object-cover group-hover:scale-105 transition-all duration-700" src="https://picsum.photos/id/101/600/400" alt="Mouse test" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                <ImageWithCredit
+                  src="https://picsum.photos/id/101/600/400"
+                  alt="Mouse test"
+                  credit="Logitech / Divulgação"
+                  className="w-full aspect-video object-cover group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                   <span className="text-white text-xs font-black uppercase tracking-widest">Flick Shot Test - 800 DPI</span>
                 </div>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-2xl relative group cursor-pointer">
-                <img className="w-full aspect-video object-cover group-hover:scale-105 transition-all duration-700" src="https://picsum.photos/id/102/600/400" alt="Scroll test" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                <ImageWithCredit
+                  src="https://picsum.photos/id/102/600/400"
+                  alt="Scroll test"
+                  credit="Logitech / Divulgação"
+                  className="w-full aspect-video object-cover group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
                   <span className="text-white text-xs font-black uppercase tracking-widest">Infinite Scroll Detail</span>
                 </div>
               </div>
@@ -150,7 +161,12 @@ const ReviewView: React.FC = () => {
               ].map((p, i) => (
                 <div key={i} className="bg-white dark:bg-[#1a2b34] rounded-2xl border border-slate-200 dark:border-white/5 p-6 hover:border-primary/50 transition-all group cursor-pointer shadow-sm">
                   <div className="aspect-square rounded-xl bg-slate-50 dark:bg-slate-900 mb-6 overflow-hidden flex items-center justify-center p-4">
-                    <img className="w-full h-full object-contain group-hover:scale-110 transition-all duration-500" src={p.img} alt={p.name} />
+                    <ImageWithCredit
+                      src={p.img}
+                      alt={p.name}
+                      credit="Divulgação"
+                      className="w-full h-full object-contain group-hover:scale-110 transition-all duration-500"
+                    />
                   </div>
                   <h4 className="font-bold text-sm mb-2 group-hover:text-primary transition-colors">{p.name}</h4>
                   <div className="flex items-center justify-between">
@@ -204,7 +220,12 @@ const ReviewView: React.FC = () => {
                 <h4 className="text-white text-2xl font-display font-bold mb-6 uppercase tracking-tight drop-shadow-lg">Mouse Gamer G502 com 40% OFF</h4>
                 <button className="bg-primary text-background-dark font-black py-4 rounded-xl text-[10px] w-full uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-xl">Aproveitar agora</button>
               </div>
-              <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" src="https://picsum.photos/id/107/400/600" alt="Promo" />
+              <ImageWithCredit
+                src="https://picsum.photos/id/107/400/600"
+                alt="Promo"
+                credit="Promo / Divulgação"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+              />
             </div>
           </div>
         </aside>

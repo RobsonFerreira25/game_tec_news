@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import newsData from '../data/news.json';
+import ImageWithCredit from '../components/ImageWithCredit';
 
 const HomeView: React.FC = () => {
   const { featured, latest, mini } = newsData;
@@ -12,10 +13,11 @@ const HomeView: React.FC = () => {
       {/* Hero Featured News */}
       <section className="mb-8 md:mb-12 relative group overflow-hidden rounded-2xl aspect-[4/5] sm:aspect-video lg:aspect-[21/9] bg-slate-900 shadow-2xl">
         <div className="absolute inset-0 bg-slate-900 flex items-center justify-center">
-          <img
-            alt={featured.title}
-            className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+          <ImageWithCredit
             src={featured.image}
+            alt={featured.title}
+            credit={featured.imgCredit}
+            className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
             onError={(e) => {
               (e.target as HTMLImageElement).src = "https://fwmedia.fandomwire.com/wp-content/uploads/2023/09/20044115/20230920_094021_0000.png?width=1600&height=900&fit=crop&format=auto&quality=70";
               (e.target as HTMLImageElement).onerror = null;
@@ -59,10 +61,11 @@ const HomeView: React.FC = () => {
               {latest.map((news: any, i: number) => (
                 <Link to={`/noticia/${news.slug || news.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} key={i} className="bg-white dark:bg-card-dark border border-slate-200 dark:border-white/5 rounded-xl overflow-hidden group hover:border-primary/30 transition-all shadow-sm">
                   <div className="relative aspect-video overflow-hidden bg-slate-800">
-                    <img
-                      alt={news.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    <ImageWithCredit
                       src={news.img}
+                      alt={news.title}
+                      credit={news.imgCredit}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = `https://ovicio.com.br/wp-content/uploads/2026/02/20260203-nioh-3-screenshot-kunimatsu-2-1536x864.jpg`;
                         (e.target as HTMLImageElement).onerror = null;
@@ -90,10 +93,11 @@ const HomeView: React.FC = () => {
               {mini.map((item: any, i: number) => (
                 <Link to={`/noticia/${item.slug || item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} key={i} className="flex items-center gap-4 p-4 rounded-xl hover:bg-white dark:hover:bg-white/5 transition-all border border-transparent hover:border-slate-200 dark:hover:border-white/10 group cursor-pointer">
                   <div className="flex-shrink-0 w-32 h-20 bg-slate-800 rounded overflow-hidden shadow-md">
-                    <img
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    <ImageWithCredit
                       src={item.img}
+                      alt={item.title}
+                      credit={item.imgCredit}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=400&q=80";
                         (e.target as HTMLImageElement).onerror = null;
