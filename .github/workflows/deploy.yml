@@ -33,9 +33,9 @@ jobs:
       - name: 🚀 Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./game_tec_news/dist/
-          server-dir: /public_html/ # Ajuste se o seu site estiver em uma subpasta
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./game_tec_news/dist/ 
+          server-dir: /home/u619424515/domains/gametecnews.com/public_html # Ajuste se o seu site estiver em uma subpasta
           dangerous-clean-slate: false # Define como true se quiser apagar arquivos antigos que não estão no dist
