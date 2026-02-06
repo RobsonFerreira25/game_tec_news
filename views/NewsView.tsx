@@ -55,28 +55,28 @@ const NewsView: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Breadcrumbs */}
-            <nav className="flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+            <nav className="flex items-center gap-2 mb-6 md:mb-8 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 overflow-x-auto whitespace-nowrap pb-2 md:pb-0">
                 <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-                <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+                <span className="material-symbols-outlined text-[10px] md:text-[12px]">chevron_right</span>
                 <span className="text-slate-900 dark:text-white uppercase">{news.label}</span>
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div className="lg:col-span-8">
-                    <article className="space-y-8">
-                        <header className="space-y-6">
-                            <span className="bg-primary text-background-dark px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-[0.2em] inline-block shadow-lg">
+                    <article className="space-y-6 md:space-y-8">
+                        <header className="space-y-4 md:space-y-6">
+                            <span className="bg-primary text-background-dark px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] inline-block shadow-lg">
                                 {news.label}
                             </span>
-                            <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight leading-tight uppercase">
+                            <h1 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold tracking-tight leading-tight uppercase">
                                 {news.title}
                             </h1>
-                            <div className="flex flex-wrap items-center gap-6 text-[11px] font-black uppercase tracking-widest text-slate-500 border-y border-slate-200 dark:border-white/5 py-4">
+                            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-500 border-y border-slate-200 dark:border-white/5 py-4">
                                 <span className="flex items-center gap-1.5">
-                                    <span className="material-symbols-outlined text-[18px]">calendar_today</span> {news.time || 'Hoje'}
+                                    <span className="material-symbols-outlined text-base md:text-[18px]">calendar_today</span> {news.time || 'Hoje'}
                                 </span>
                                 <span className="flex items-center gap-1.5">
-                                    <span className="material-symbols-outlined text-[18px]">person</span> Por {news.author || 'Redação Gametech'}
+                                    <span className="material-symbols-outlined text-base md:text-[18px]">person</span> Por {news.author || 'Redação Gametech'}
                                 </span>
                             </div>
                         </header>
@@ -93,12 +93,12 @@ const NewsView: React.FC = () => {
                             />
                         </div>
 
-                        <div className="prose prose-lg prose-slate dark:prose-invert max-w-none prose-h2:uppercase prose-h2:font-display prose-h2:tracking-tight prose-h3:uppercase prose-h3:font-display prose-a:text-primary prose-strong:text-primary">
-                            <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium italic mb-10 border-l-4 border-primary pl-6">
+                        <div className="prose prose-sm sm:prose-base md:prose-lg prose-slate dark:prose-invert max-w-none prose-h2:uppercase prose-h2:font-display prose-h2:tracking-tight prose-h3:uppercase prose-h3:font-display prose-a:text-primary prose-strong:text-primary">
+                            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium italic mb-6 md:mb-10 border-l-4 border-primary pl-4 md:pl-6">
                                 {news.description}
                             </p>
 
-                            <div className="text-slate-700 dark:text-slate-200 mt-8">
+                            <div className="text-slate-700 dark:text-slate-200 mt-6 md:mt-8">
                                 {news.content ? (
                                     <div className="article-body" dangerouslySetInnerHTML={{ __html: news.content }} />
                                 ) : (
@@ -108,7 +108,7 @@ const NewsView: React.FC = () => {
                         </div>
 
                         {/* Source Credits */}
-                        <footer className="mt-12 p-6 bg-slate-100 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 italic text-sm">
+                        <footer className="mt-8 md:mt-12 p-4 md:p-6 bg-slate-100 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 italic text-sm">
                             <p className="flex items-center gap-2">
                                 <span className="material-symbols-outlined text-sm">link</span>
                                 Fonte original: <a href={news.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold transition-all">{news.sourceName || 'Veja a matéria original'}</a>

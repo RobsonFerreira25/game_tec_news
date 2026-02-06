@@ -10,7 +10,7 @@ const HomeView: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Hero Featured News */}
-      <section className="mb-12 relative group overflow-hidden rounded-2xl aspect-[21/9] bg-slate-900 shadow-2xl">
+      <section className="mb-8 md:mb-12 relative group overflow-hidden rounded-2xl aspect-[4/5] sm:aspect-video lg:aspect-[21/9] bg-slate-900 shadow-2xl">
         <div className="absolute inset-0 bg-slate-900 flex items-center justify-center">
           <img
             alt={featured.title}
@@ -23,20 +23,20 @@ const HomeView: React.FC = () => {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-3/4">
-          <span className="bg-primary text-background-dark px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block shadow-lg">{featured.label}</span>
-          <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-4 uppercase tracking-tighter">
+        <div className="absolute bottom-0 left-0 p-6 md:p-12 w-full md:w-3/4">
+          <span className="bg-primary text-background-dark px-3 py-1 rounded-sm text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block shadow-lg">{featured.label}</span>
+          <h1 className="text-2xl sm:text-4xl md:text-6xl font-display font-bold leading-tight mb-4 uppercase tracking-tighter">
             {featured.title}
           </h1>
-          <p className="text-slate-300 text-lg mb-6 line-clamp-2 max-w-2xl font-medium">
+          <p className="text-slate-300 text-sm md:text-lg mb-6 line-clamp-2 max-w-2xl font-medium">
             {featured.description}
           </p>
           <div className="flex items-center gap-4">
-            <Link to={`/noticia/${featured.slug}`} className="bg-primary text-background-dark font-black px-8 py-3 rounded uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all flex items-center gap-2 shadow-lg">
-              Ler Matéria <span className="material-symbols-outlined text-sm font-bold">trending_flat</span>
+            <Link to={`/noticia/${featured.slug}`} className="bg-primary text-background-dark font-black px-6 md:px-8 py-2.5 md:py-3 rounded uppercase tracking-widest text-[10px] md:text-xs hover:scale-105 active:scale-95 transition-all flex items-center gap-2 shadow-lg">
+              Ler Matéria <span className="material-symbols-outlined text-xs md:text-sm font-bold">trending_flat</span>
             </Link>
-            <span className="text-slate-400 text-xs font-bold flex items-center gap-1 uppercase tracking-widest">
-              <span className="material-symbols-outlined text-sm">schedule</span> {featured.time}
+            <span className="text-slate-400 text-[10px] md:text-xs font-bold flex items-center gap-1 uppercase tracking-widest whitespace-nowrap">
+              <span className="material-symbols-outlined text-xs md:text-sm">schedule</span> {featured.time}
             </span>
           </div>
         </div>
@@ -116,15 +116,15 @@ const HomeView: React.FC = () => {
           </div>
 
           {/* PC Gamer Section */}
-          <section className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-2xl border border-primary/20 relative overflow-hidden shadow-2xl">
+          <section className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 md:p-8 rounded-2xl border border-primary/20 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 p-4">
-              <span className="material-symbols-outlined text-primary text-7xl opacity-10">hardware</span>
+              <span className="material-symbols-outlined text-primary text-6xl md:text-7xl opacity-10">hardware</span>
             </div>
             <div className="relative z-10">
               <h2 className="font-display text-2xl font-bold text-white mb-2 uppercase tracking-tight">PC Gamer do Mês</h2>
-              <p className="text-slate-400 mb-8 max-w-lg font-medium">Nosso setup "Mestre do Custo-Benefício" otimizado para 1440p em altas taxas de quadros. Custo total: <span className="text-primary font-bold">R$ 6.250</span></p>
+              <p className="text-slate-400 text-sm md:text-base mb-8 max-w-lg font-medium">Nosso setup \"Mestre do Custo-Benefício\" otimizado para 1440p em altas taxas de quadros. Custo total: <span className="text-primary font-bold">R$ 6.250</span></p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { icon: 'computer', name: 'AMD Ryzen 7 7800X3D' },
                   { icon: 'videogame_asset', name: 'RTX 4070 Super 12GB' },
@@ -141,7 +141,7 @@ const HomeView: React.FC = () => {
                 ))}
               </div>
 
-              <button className="mt-8 w-full bg-primary text-background-dark font-black py-4 rounded uppercase tracking-[0.2em] text-xs hover:brightness-110 active:scale-95 transition-all shadow-lg">
+              <button className="mt-8 w-full bg-primary text-background-dark font-black py-4 rounded uppercase tracking-[0.2em] text-[10px] md:text-xs hover:brightness-110 active:scale-95 transition-all shadow-lg">
                 Ver Lista Completa de Componentes
               </button>
             </div>

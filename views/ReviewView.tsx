@@ -6,49 +6,49 @@ const ReviewView: React.FC = () => {
   return (
     <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
-      <nav className="flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+      <nav className="flex items-center gap-2 mb-6 md:mb-8 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 overflow-x-auto whitespace-nowrap pb-2 md:pb-0">
         <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-        <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+        <span className="material-symbols-outlined text-[10px] md:text-[12px]">chevron_right</span>
         <Link to="/" className="hover:text-primary transition-colors">Reviews</Link>
-        <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+        <span className="material-symbols-outlined text-[10px] md:text-[12px]">chevron_right</span>
         <span className="text-slate-900 dark:text-white">Mouses Gamer</span>
       </nav>
 
-      <div className="mb-10">
-        <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6 leading-tight uppercase">
+      <div className="mb-8 md:mb-10">
+        <h1 className="text-2xl md:text-5xl font-display font-bold tracking-tight mb-6 leading-tight uppercase">
           Logitech G502 Hero: O Rei da Produtividade ainda vale a pena em 2024?
         </h1>
-        <div className="flex flex-wrap items-center gap-6 text-[11px] font-black uppercase tracking-widest text-slate-500">
-          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[18px]">calendar_today</span> 15 de Maio, 2024</span>
-          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[18px]">person</span> Por João Tech</span>
-          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[18px]">timer</span> 8 min de leitura</span>
+        <div className="flex flex-wrap items-center gap-4 md:gap-6 text-[10px] md:text-[11px] font-black uppercase tracking-widest text-slate-500">
+          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-base md:text-[18px]">calendar_today</span> 15 de Maio, 2024</span>
+          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-base md:text-[18px]">person</span> Por João Tech</span>
+          <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-base md:text-[18px]">timer</span> 8 min de leitura</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 space-y-12">
+        <div className="lg:col-span-8 space-y-10 md:space-y-12">
           {/* Verdict Card */}
-          <div className="bg-white dark:bg-[#1a2b34] rounded-2xl border border-slate-200 dark:border-white/5 p-8 shadow-xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-primary/20 text-primary px-6 py-1.5 rounded-bl-2xl text-[10px] font-black tracking-[0.2em] uppercase">Editor's Choice</div>
-            <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
+          <div className="bg-white dark:bg-[#1a2b34] rounded-2xl border border-slate-200 dark:border-white/5 p-6 md:p-8 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-primary/20 text-primary px-4 md:px-6 py-1 md:py-1.5 rounded-bl-2xl text-[9px] md:text-[10px] font-black tracking-[0.2em] uppercase">Editor's Choice</div>
+            <div className="flex flex-col gap-6 md:gap-8 items-center md:items-center md:flex-row">
               <div className="relative flex-shrink-0">
-                <div className="w-32 h-32 bg-slate-50 dark:bg-slate-900 rounded-2xl flex items-center justify-center border-4 border-primary shadow-[0_0_15px_rgba(0,242,255,0.2)] group-hover:shadow-[0_0_25px_rgba(0,242,255,0.4)] transition-all">
-                  <span className="text-5xl font-display font-bold text-primary">9.5</span>
+                <div className="w-24 h-24 md:w-32 md:h-32 bg-slate-50 dark:bg-slate-900 rounded-2xl flex items-center justify-center border-4 border-primary shadow-[0_0_15px_rgba(0,242,255,0.2)] group-hover:shadow-[0_0_25px_rgba(0,242,255,0.4)] transition-all">
+                  <span className="text-4xl md:text-5xl font-display font-bold text-primary">9.5</span>
                 </div>
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-background-dark px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Veredito</div>
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-background-dark px-3 md:px-4 py-1 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-lg whitespace-nowrap">Veredito</div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-display font-bold mb-3 flex items-center gap-2 uppercase tracking-tight">
-                  <span className="material-symbols-outlined text-primary font-bold">verified</span> 
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-xl md:text-2xl font-display font-bold mb-3 flex items-center justify-center md:justify-start gap-2 uppercase tracking-tight">
+                  <span className="material-symbols-outlined text-primary font-bold">verified</span>
                   Selo Gametech: Recomendado
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                   O G502 Hero continua sendo a referência absoluta em ergonomia e versatilidade. Com o sensor HERO 25K, ele entrega precisão cirúrgica tanto para shooters quanto para workflows pesados de edição.
                 </p>
               </div>
               <div className="w-full md:w-auto">
-                <button className="w-full md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl active:scale-95">
-                  <span className="material-symbols-outlined text-[20px]">shopping_cart</span>
+                <button className="w-full md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl active:scale-95">
+                  <span className="material-symbols-outlined text-[18px] md:text-[20px]">shopping_cart</span>
                   Ver na Amazon
                 </button>
               </div>
@@ -57,12 +57,12 @@ const ReviewView: React.FC = () => {
 
           {/* Price Comparison */}
           <section>
-            <h2 className="text-2xl font-display font-bold mb-6 flex items-center gap-3 uppercase tracking-tight">
+            <h2 className="text-xl md:text-2xl font-display font-bold mb-6 flex items-center gap-3 uppercase tracking-tight">
               <span className="material-symbols-outlined text-primary font-bold">local_offer</span>
               Melhor Preço
             </h2>
-            <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/5 shadow-sm">
-              <table className="w-full text-left bg-white dark:bg-[#1a2b34]">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/5 shadow-sm">
+              <table className="w-full text-left bg-white dark:bg-[#1a2b34] min-w-[600px]">
                 <thead className="bg-slate-50 dark:bg-white/5 text-[10px] uppercase font-black tracking-widest text-slate-400">
                   <tr>
                     <th className="px-6 py-5">Loja</th>
@@ -138,7 +138,7 @@ const ReviewView: React.FC = () => {
               </div>
             </div>
           </article>
-          
+
           {/* Related Products */}
           <section>
             <h2 className="text-2xl font-display font-bold mb-8 uppercase tracking-tight">Mouses Relacionados</h2>
@@ -193,7 +193,7 @@ const ReviewView: React.FC = () => {
               <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform"></div>
               <h3 className="text-2xl font-display font-bold mb-3 uppercase tracking-tight leading-none">Fique por dentro!</h3>
               <p className="text-xs font-black mb-6 opacity-70 uppercase tracking-widest leading-relaxed">As melhores promoções de periféricos direto no seu e-mail.</p>
-              <input className="w-full bg-white/20 border-transparent rounded-xl py-3.5 px-5 text-sm font-bold placeholder:text-background-dark/50 mb-4 focus:ring-0 outline-none" placeholder="Seu melhor e-mail"/>
+              <input className="w-full bg-white/20 border-transparent rounded-xl py-3.5 px-5 text-sm font-bold placeholder:text-background-dark/50 mb-4 focus:ring-0 outline-none" placeholder="Seu melhor e-mail" />
               <button className="w-full bg-background-dark text-white font-black py-4 rounded-xl text-[10px] hover:brightness-125 active:scale-95 transition-all uppercase tracking-[0.2em] shadow-xl">Quero participar</button>
             </div>
 

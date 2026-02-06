@@ -15,25 +15,25 @@ const DealsView: React.FC = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
-            <header className="mb-12">
+            <header className="mb-8 md:mb-12">
                 <div className="flex items-center gap-3 mb-4">
-                    <span className="w-2 h-10 bg-primary rounded-full shadow-[0_0_15px_rgba(0,242,255,0.5)]"></span>
-                    <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight uppercase">
+                    <span className="w-1.5 md:w-2 h-8 md:h-10 bg-primary rounded-full shadow-[0_0_15px_rgba(0,242,255,0.5)]"></span>
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight uppercase">
                         Ofertas e Descontos
                     </h1>
                 </div>
-                <p className="text-slate-500 dark:text-slate-400 max-w-2xl text-lg">
+                <p className="text-slate-500 dark:text-slate-400 max-w-2xl text-base md:text-lg">
                     Acompanhe as melhores promoções de hardware, games e periféricos selecionadas pela nossa redação.
                 </p>
             </header>
 
             {/* Filters */}
-            <div className="flex flex-wrap gap-3 mb-12">
+            <div className="flex items-center gap-3 mb-8 md:mb-12 overflow-x-auto pb-4 md:pb-0 whitespace-nowrap scrollbar-hide">
                 {categories.map(cat => (
                     <button
                         key={cat}
                         onClick={() => setFilter(cat)}
-                        className={`px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all ${filter === cat
+                        className={`px-5 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest transition-all ${filter === cat
                             ? 'bg-primary text-background-dark shadow-lg scale-105'
                             : 'bg-white dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10'
                             }`}
@@ -65,8 +65,8 @@ const DealsView: React.FC = () => {
                                 </span>
                             </div>
                             <div className={`absolute bottom-4 right-4 backdrop-blur-md text-white text-[10px] font-black px-3 py-1 rounded uppercase tracking-widest border border-white/10 ${deal.store === 'Amazon' ? 'bg-[#ff9900]/80' :
-                                    deal.store === 'Shopee' ? 'bg-[#ee4d2d]/80' :
-                                        'bg-[#fff159]/80 text-[#333]'
+                                deal.store === 'Shopee' ? 'bg-[#ee4d2d]/80' :
+                                    'bg-[#fff159]/80 text-[#333]'
                                 }`}>
                                 {deal.store}
                             </div>
