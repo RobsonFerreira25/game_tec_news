@@ -14,6 +14,20 @@
     },
     "latest": [
         {
+            "title": "Obsbot Tiny 3 Lite: A webcam 4K com gimbal que redefine o rastreamento por IA",
+            "label": "Review",
+            "color": "bg-secondary",
+            "img": "https://http2.mlstatic.com/D_NQ_NP_612261-MLU78153406562_082024-F.webp",
+            "description": "Com rastreamento de rosto cirúrgico e comandos de voz, a nova aposta da Obsbot impressiona, mas vale o investimento de US$ 350?",
+            "author": "Cameron Faulkner",
+            "slug": "obsbot-tiny-3-lite",
+            "imgCredit": "Cameron Faulkner / The Verge",
+            "comments": 12,
+            "sourceName": "The Verge",
+            "sourceUrl": "https://www.theverge.com/tech/867950/obsbot-tiny-3-lite-hands-on-impressions",
+            "content": "<p>A <strong>Obsbot Tiny 3 Lite</strong> chegou ao mercado prometendo ser a webcam PTZ (Pan, Tilt, Zoom) mais avançada para criadores. Equipado com um sensor de 1/1.28 polegada, o dispositivo entrega imagens nítidas em 4K, mas o seu verdadeiro diferencial é o <strong>rastreamento por Inteligência Artificial</strong>.</p><p>Em nossos testes, a câmera seguiu movimentos rápidos com suavidade impressionante, e o controle por voz mostrou-se extremamente útil. No entanto, o software de acompanhamento ainda é um ponto de discórdia, sendo considerado confuso por muitos usuários iniciais.</p>"
+        },
+        {
             "title": "GTA 6: CEO da Take-Two silencia rumores sobre exclusividade digital",
             "label": "Rockstar",
             "color": "bg-accent-orange",
