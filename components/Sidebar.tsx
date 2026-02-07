@@ -52,24 +52,25 @@ const Sidebar: React.FC = () => {
         </Link>
       </section>
 
+      {/* Recommended For You */}
       <section className="bg-white dark:bg-card-dark border border-slate-200 dark:border-white/5 rounded-xl p-5 shadow-sm">
         <h3 className="font-display font-bold text-xl uppercase tracking-tight mb-5 flex items-center gap-2">
           <span className="material-symbols-outlined text-secondary fill-current">auto_awesome</span> Para Você
         </h3>
-        <div className="bg-slate-50 dark:bg-white/5 rounded-xl p-4 border border-slate-100 dark:border-white/5 group">
+        <div className="bg-slate-50 dark:bg-white/5 rounded-xl p-4 border border-slate-100 dark:border-white/5">
           <ImageWithCredit
-            src="https://http2.mlstatic.com/D_NQ_NP_612261-MLU78153406562_082024-F.webp"
-            alt="OBSBOT Tiny 3 Lite Review"
-            credit="Cameron Faulkner / The Verge"
+            src="https://picsum.photos/id/30/400/250"
+            alt="Monitor Review"
+            credit="Divulgação"
             className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all"
           />
-          <h4 className="font-bold text-base mb-2">OBSBOT Tiny 3 Lite: 4K & Gimbal</h4>
+          <h4 className="font-bold text-base mb-2">Alienware AW3423DW QD-OLED</h4>
           <div className="flex items-center gap-1 text-yellow-500 mb-4">
             {[1, 2, 3, 4].map(s => <span key={s} className="material-symbols-outlined text-sm font-bold fill-current">star</span>)}
-            <span className="material-symbols-outlined text-sm font-bold">star</span>
-            <span className="text-[10px] text-slate-400 font-bold ml-1 tracking-widest">(5.0/5)</span>
+            <span className="material-symbols-outlined text-sm font-bold">star_half</span>
+            <span className="text-[10px] text-slate-400 font-bold ml-1 tracking-widest">(4.8/5)</span>
           </div>
-          <Link to="/review/obsbot-tiny-3-lite" className="w-full bg-secondary text-white font-black py-2.5 rounded uppercase text-[10px] tracking-widest hover:brightness-110 active:scale-95 transition-all block text-center shadow-lg">
+          <Link to="/review/alienware" className="w-full bg-secondary text-white font-black py-2.5 rounded uppercase text-[10px] tracking-widest hover:brightness-110 active:scale-95 transition-all block text-center shadow-lg">
             Ler Review Completo
           </Link>
         </div>
