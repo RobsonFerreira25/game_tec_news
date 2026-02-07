@@ -1,9 +1,13 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import AuthModal from './AuthModal';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { user, profile, signOut } = useAuth();
 
   const navLinks = [
     { name: 'Notícias', path: '/' },
@@ -52,12 +56,66 @@ const Header: React.FC = () => {
             <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
           </div>
 
-          <button className="material-symbols-outlined text-slate-500 hover:text-primary transition-colors p-1">person</button>
-          <button className="hidden sm:block bg-primary text-background-dark font-extrabold px-3 md:px-4 py-2 rounded text-[9px] md:text-[10px] uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all">
-            Inscrever-se
-          </button>
+          <div className="relative">
+            {user ? (
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+              >
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-background-dark font-black text-xs overflow-hidden border-2 border-primary/20">
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt={profile.username} className="w-full h-full object-cover" />
+                  ) : (
+                    profile?.username?.[0].toUpperCase() || 'U'
+                  )}
+                </div>
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="material-symbols-outlined text-slate-500 hover:text-primary transition-colors p-1"
+              >
+                person
+              </button>
+            )}
+
+            {isProfileOpen && user && (
+              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-[#1a2b34] rounded-2xl border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="p-4 border-b border-slate-100 dark:border-white/5">
+                  <p className="text-xs font-black uppercase tracking-widest text-primary mb-1">Perfil</p>
+                  <p className="font-bold text-sm truncate">{profile?.full_name || user.email}</p>
+                  <p className="text-[10px] text-slate-500 truncate">@{profile?.username || 'user'}</p>
+                </div>
+                <div className="p-2">
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors text-left">
+                    <span className="material-symbols-outlined text-sm">settings</span> Configurações
+                  </button>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsProfileOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold hover:bg-red-500/10 text-red-500 rounded-lg transition-colors text-left"
+                  >
+                    <span className="material-symbols-outlined text-sm">logout</span> Sair
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {!user && (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="hidden sm:block bg-primary text-background-dark font-extrabold px-3 md:px-4 py-2 rounded text-[9px] md:text-[10px] uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all"
+            >
+              Entrar
+            </button>
+          )}
         </div>
       </div>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
 
       {/* Mobile Navigation Drawer */}
       <div className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}>

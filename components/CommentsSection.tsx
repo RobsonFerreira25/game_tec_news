@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { useAuth } from '../hooks/useAuth';
 
 interface Comment {
     id: string;
@@ -19,6 +20,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ articleSlug }) => {
     const [newComment, setNewComment] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
+    const { user, profile } = useAuth();
 
     useEffect(() => {
         fetchComments();
@@ -42,7 +44,8 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ articleSlug }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!newComment.trim() || !userName.trim()) return;
+        const finalUserName = user ? (profile?.username || 'Usuário') : userName;
+        if (!newComment.trim() || !finalUserName.trim()) return;
 
         setIsLoading(true);
         const { error } = await supabase
@@ -50,8 +53,9 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ articleSlug }) => {
             .insert([
                 {
                     article_slug: articleSlug,
-                    user_name: userName,
+                    user_name: finalUserName,
                     content: newComment,
+                    user_id: user?.id || null
                 },
             ]);
 
@@ -74,19 +78,27 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ articleSlug }) => {
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="mb-12 space-y-4 bg-slate-50 dark:bg-white/5 p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm transition-all focus-within:border-primary/50">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Seu Nome</label>
-                        <input
-                            type="text"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                            placeholder="Ex: João Silva"
-                            className="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 rounded-xl py-3 px-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
-                            required
-                        />
+                {!user && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Seu Nome</label>
+                            <input
+                                type="text"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                                placeholder="Ex: João Silva"
+                                className="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 rounded-xl py-3 px-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
+                                required
+                            />
+                        </div>
                     </div>
-                </div>
+                )}
+                {user && (
+                    <div className="flex items-center gap-2 mb-2 p-2 bg-primary/10 rounded-lg border border-primary/20 w-fit">
+                        <span className="material-symbols-outlined text-primary text-sm">person</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">Postando como: {profile?.username || 'Usuário'}</span>
+                    </div>
+                )}
                 <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Mensagem</label>
                     <textarea
