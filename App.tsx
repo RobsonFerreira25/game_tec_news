@@ -7,10 +7,13 @@ import HomeView from './views/HomeView';
 import ReviewView from './views/ReviewView';
 import NewsView from './views/NewsView';
 import DealsView from './views/DealsView';
+import { useAuth } from './context/AuthContext';
+import AuthModal from './components/AuthModal';
 
 const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
+  const { isAuthModalOpen, closeAuthModal } = useAuth();
 
   useEffect(() => {
     if (isDarkMode) {
@@ -49,6 +52,8 @@ const App: React.FC = () => {
           {isDarkMode ? 'light_mode' : 'dark_mode'}
         </span>
       </button>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };

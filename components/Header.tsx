@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import AuthModal from './AuthModal';
+import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, openAuthModal } = useAuth();
 
   const navLinks = [
     { name: 'Notícias', path: '/' },
@@ -72,7 +70,7 @@ const Header: React.FC = () => {
               </button>
             ) : (
               <button
-                onClick={() => setIsAuthModalOpen(true)}
+                onClick={openAuthModal}
                 className="material-symbols-outlined text-slate-500 hover:text-primary transition-colors p-1"
               >
                 person
@@ -106,7 +104,7 @@ const Header: React.FC = () => {
 
           {!user && (
             <button
-              onClick={() => setIsAuthModalOpen(true)}
+              onClick={openAuthModal}
               className="hidden sm:block bg-primary text-background-dark font-extrabold px-3 md:px-4 py-2 rounded text-[9px] md:text-[10px] uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all"
             >
               Entrar
@@ -114,8 +112,6 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
-
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
 
       {/* Mobile Navigation Drawer */}
       <div className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}>
