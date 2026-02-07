@@ -32,8 +32,27 @@ async def scrape_ml_product(url):
             # --- Extração de Dados ---
             
             # Título
-            title_tag = soup.select_one('h1.ui-pdp-title')
-            title = title_tag.text.strip() if title_tag else "Título não encontrado"
+            title_selectors = [
+                'h1.ui-pdp-title',
+                '.ui-pdp-title',
+                'h1',
+                '.item-title__primary'
+            ]
+            title = ""
+            # Tenta primeiro via Meta Tag
+            og_title = soup.find('meta', property='og:title')
+            if og_title:
+                title = og_title.get('content')
+            
+            if not title:
+                for sel in title_selectors:
+                    title_tag = soup.select_one(sel)
+                    if title_tag:
+                        title = title_tag.text.strip()
+                        break
+            
+            if not title:
+                title = "Título não encontrado"
             
             # Preço Atual
             price_selectors = [
@@ -71,9 +90,32 @@ async def scrape_ml_product(url):
             discount = discount_tag.text.strip() if discount_tag else ""
             
             # Imagem
-            img_tag = soup.select_one('img.ui-pdp-image.ui-pdp-gallery__figure__image')
-            # Pega o src ou data-zoom se disponível para melhor qualidade
-            image_url = img_tag.get('data-zoom') or img_tag.get('src') if img_tag else ""
+            image_selectors = [
+                'img.ui-pdp-image.ui-pdp-gallery__figure__image',
+                'img.ui-pdp-image',
+                'img.ui-pdp-gallery__figure__image',
+                '.ui-pdp-gallery__figure img',
+                'img[data-zoom]'
+            ]
+            
+            image_url = ""
+            # Tenta primeiro via Meta Tag (mais estável)
+            og_image = soup.find('meta', property='og:image')
+            if og_image:
+                image_url = og_image.get('content')
+                
+            # Se não achou na meta tag ou quer tentar seletores específicos
+            if not image_url:
+                for sel in image_selectors:
+                    img_tag = soup.select_one(sel)
+                    if img_tag:
+                        image_url = img_tag.get('data-zoom') or img_tag.get('src') or img_tag.get('data-src')
+                        if image_url:
+                            break
+            
+            # Limpeza de URL de imagem (caso venha com zoom ou parâmetros)
+            if image_url and image_url.startswith('//'):
+                image_url = f"https:{image_url}"
             
             # --- Montagem do Objeto do Deal ---
             
