@@ -6,52 +6,98 @@ from playwright.sync_api import sync_playwright
 # Configuração de Caminhos
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FILE = os.path.join(BASE_DIR, 'data', 'pc_build.json')
+ERROR_SCREENSHOT_DIR = os.path.join(BASE_DIR, 'debug_screenshots')
+
+if not os.path.exists(ERROR_SCREENSHOT_DIR):
+    os.makedirs(ERROR_SCREENSHOT_DIR)
 
 def wait_for_login(page):
-    """Aguarda o usuário fazer login e verifica a barra SiteStripe"""
+    """Aguarda ativamente o usuário fazer login verificando a barra SiteStripe"""
     print("\n🔐 AÇÃO NECESSÁRIA: Faça login na sua conta Amazon no navegador aberto.")
-    print("👀 Verifique se a barra 'SiteStripe' aparece no topo da página.")
-    input("⌨️  Pressione ENTER aqui no terminal quando estiver logado e pronto para continuar...")
+    print("👀 O script aguarda a barra 'SiteStripe' aparecer no topo...")
+    
+    max_attempts = 300 # 5 minutos
+    attempts = 0
+    
+    while attempts < max_attempts:
+        try:
+            # Verifica se elementos do SiteStripe estão visíveis
+            # #amzn-ss-text-link-icon é o ícone de Texto
+            if page.locator("#amzn-ss-text-link-icon").is_visible() or page.locator("a[title='Texto']").is_visible():
+                print("\n✅ Login detectado! Barra SiteStripe encontrada.")
+                return True
+        except:
+            pass
+            
+        time.sleep(1)
+        attempts += 1
+        if attempts % 10 == 0:
+            print(f"⏳ Aguardando login... ({attempts}s)")
+            
+    print("❌ Tempo limite de login esgotado.")
+    return False
 
 def get_sitestripe_link(page, query):
     print(f"🔎 Buscando: {query}...")
     try:
         # Busca o produto
         search_box = page.locator("#twotabsearchtextbox")
-        if not search_box.is_visible():
-            page.goto("https://www.amazon.com.br")
-            page.wait_for_selector("#twotabsearchtextbox")
+        try:
+            if not search_box.is_visible():
+                page.goto("https://www.amazon.com.br")
+                page.wait_for_selector("#twotabsearchtextbox", timeout=10000)
+            
+            search_box.fill(query)
+            search_box.press("Enter")
+            
+            # Espera resultados
+            page.wait_for_selector("div.s-search-results", timeout=15000)
+        except Exception as e:
+            print(f"⚠️ Erro na busca: {e}")
+            page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"error_search_{query}.png"))
+            return ""
         
-        page.fill("#twotabsearchtextbox", query)
-        page.press("#twotabsearchtextbox", "Enter")
+        # Tenta diferentes seletores para o primeiro resultado
+        selectors = [
+             "div.s-main-slot div[data-component-type='s-search-result'] h2 a",
+             "div.s-result-item h2 a",
+             ".s-search-results h2 a"
+        ]
         
-        # Espera resultados
-        page.wait_for_selector("div.s-search-results", timeout=15000)
+        first_result = None
+        for sel in selectors:
+            res = page.locator(sel).first
+            if res.count() > 0:
+                first_result = res
+                break
         
-        # Clica no primeiro resultado
-        first_result = page.locator("div.s-main-slot div[data-component-type='s-search-result'] h2 a").first
-        if not first_result.count():
+        if not first_result:
              print(f"❌ Nenhum resultado para {query}")
+             page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"no_results_{query}.png"))
              return ""
         
-        first_result.click()
+        # Clica e espera carregar
+        try:
+            with page.expect_navigation(timeout=15000):
+                first_result.click()
+        except:
+            print("⚠️ Navegação demorou, mas continuando...")
+        
         page.wait_for_load_state("domcontentloaded")
         
         # Interação com SiteStripe
-        # O seletor do botão "Texto" no SiteStripe geralmente é #amzn-ss-text-link-icon ou similar
-        # Vamos tentar ser específicos mas flexíveis
-        print("🔗 Tentando obter link via SiteStripe...")
+        print("🔗 Obtendo link...")
         
-        # Espera a barra carregar (pode demorar um pouco)
         try:
-            # Tenta clicar no botão "Texto" (Get Link: Text)
-            # Seletor ID comum: a#amzn-ss-text-link-icon
-            # Ou pelo texto "Texto" dentro da div do sitestripe
-            sitestripe_btn = page.locator("a[title='Texto']").or_(page.locator("#amzn-ss-text-link-icon"))
+            sitestripe_btn = page.locator("#amzn-ss-text-link-icon")
+            # Fallback seletor
+            if not sitestripe_btn.count():
+                 sitestripe_btn = page.locator("a[title='Texto']")
+            
             sitestripe_btn.wait_for(state="visible", timeout=10000)
             sitestripe_btn.click()
             
-            # Espera o painel do link abrir e o link curto aparecer
+            # Espera o painel
             link_area = page.locator("#amzn-ss-text-shortlink-textarea")
             link_area.wait_for(state="visible", timeout=10000)
             
@@ -62,15 +108,18 @@ def get_sitestripe_link(page, query):
                 print(f"✅ Link gerado: {short_link}")
                 return short_link
             else:
-                print("❌ Falha ao extrair texto do link.")
+                print("❌ Link vazio.")
+                page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"empty_link_{query}.png"))
                 return ""
                 
         except Exception as e:
-            print(f"⚠️ Erro ao interagir com SiteStripe (Você está logado?): {e}")
+            print(f"⚠️ Falha no SiteStripe: {e}")
+            page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"error_sitestripe_{query}.png"))
             return ""
 
     except Exception as e:
-        print(f"❌ Erro ao processar {query}: {e}")
+        print(f"❌ Erro geral em {query}: {e}")
+        page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"error_general_{query}.png"))
         return ""
 
 def main():
@@ -81,15 +130,11 @@ def main():
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    print("\n🚀 Iniciando Amazon Linker Bot (Modo SiteStripe)...")
-    print("ℹ️  Este script usará sua conta Amazon logada para gerar links oficiais.")
+    print("\n🚀 Iniciando Amazon Linker Bot (Modo SiteStripe V2)...")
+    print("ℹ️  O script aguardará você logar para começar.")
     print("-----------------------------------")
 
     with sync_playwright() as p:
-        # Launch com persistência temporária de sessão seria ideal, 
-        # mas como rodamos sob demanda, vamos pedir login a cada vez ou usar um dir de user data se o usuário quiser (mais complexo).
-        # Vamos manter simples: abre, loga, processa.
-        
         browser = p.chromium.launch(headless=False, args=["--start-maximized"])
         context = browser.new_context(
             viewport={'width': 1920, 'height': 1080},
@@ -97,11 +142,12 @@ def main():
         )
         page = context.new_page()
         
-        # Vai para home para login
         page.goto("https://www.amazon.com.br")
         
-        # Espera Login do Usuário
-        wait_for_login(page)
+        # Modificado: Aguarda detecção visual em vez de ENTER
+        if not wait_for_login(page):
+            browser.close()
+            return
         
         changed_count = 0
         sections = ['buildComponents', 'additionalComponents']
@@ -111,19 +157,19 @@ def main():
             for item in items:
                 current_link = item.get('affiliateLink', '')
                 
-                # Só busca se não tiver link
                 if not current_link:
+                    # Pequena pausa antes de começar
+                    time.sleep(1)
                     new_link = get_sitestripe_link(page, item['searchQuery'])
                     if new_link:
                         item['affiliateLink'] = new_link
                         changed_count += 1
-                        time.sleep(2) # Pausa leve
+                        time.sleep(2)
                 else:
-                     print(f"ℹ️  {item['name']} já possui link.")
+                     print(f"ℹ️  {item['name']} já conferido.")
 
         browser.close()
 
-    # Salva
     if changed_count > 0:
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
