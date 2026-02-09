@@ -108,8 +108,13 @@ def get_sitestripe_link(page, query):
         
         try:
             # Seletores possíveis para o botão de texto/Obter link
-            # Prioridade para o botão amarelo explícito "Obter link" que o usuário relatou
-            sitestripe_btn = page.locator("a:has-text('Obter link')").or_(page.locator("button:has-text('Obter link')"))
+            # Prioridade para o botão ID explícito que vimos no log de erro
+            # O seletor por texto estava dando "strict mode violation" pois existem botões duplicados
+            sitestripe_btn = page.locator("#amzn-ss-get-link-button")
+            
+            # Tenta locator antigo se não tiver ID (fallback)
+            if not sitestripe_btn.count():
+                 sitestripe_btn = page.locator("a:has-text('Obter link')").or_(page.locator("button:has-text('Obter link')")).first
             
             if not sitestripe_btn.count() or not sitestripe_btn.is_visible():
                  # Fallbacks antigos
