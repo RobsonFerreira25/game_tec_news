@@ -42,6 +42,7 @@ def wait_for_login(page):
         
     return True
 
+
 def get_sitestripe_link(page, query):
     print(f"🔎 Buscando: {query}...")
     try:
@@ -56,33 +57,41 @@ def get_sitestripe_link(page, query):
             search_box.press("Enter")
             
             # Espera resultados
-            page.wait_for_selector("div.s-search-results", timeout=15000)
+            page.wait_for_selector("div.s-main-slot", timeout=15000)
+            
+            # SCROLL: Ajuda a carregar imagens/itens em conexões lentas ou lazy load
+            page.evaluate("window.scrollBy(0, 300)")
+            time.sleep(1) 
+            
         except Exception as e:
             print(f"⚠️ Erro na busca: {e}")
             page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"error_search_{query}.png"))
             return ""
         
         # Tenta diferentes seletores para o primeiro resultado
+        # Prioriza links de título, depois links de imagem
         selectors = [
-             "div.s-main-slot div[data-component-type='s-search-result'] h2 a",
-             "div.s-result-item h2 a",
+             "div.s-main-slot div[data-component-type='s-search-result'] h2 a", # Título padrão
+             "div.s-main-slot div[data-component-type='s-search-result'] .s-image", # Clique na imagem (muito robusto)
+             "div.s-result-item h2 a", # Fallback genérico
              ".s-search-results h2 a"
         ]
         
         first_result = None
         for sel in selectors:
             res = page.locator(sel).first
-            if res.count() > 0:
+            if res.count() > 0 and res.is_visible():
                 first_result = res
                 break
         
         if not first_result:
-             print(f"❌ Nenhum resultado para {query}")
+             print(f"❌ Nenhum resultado visível para {query}")
              page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"no_results_{query}.png"))
              return ""
         
         # Clica e espera carregar
         try:
+            # Se for imagem, precisamos pegar o pai 'a' ou clicar nela que geralmente leva ao produto
             with page.expect_navigation(timeout=15000):
                 first_result.click()
         except:
@@ -90,37 +99,57 @@ def get_sitestripe_link(page, query):
         
         page.wait_for_load_state("domcontentloaded")
         
+        # Validação extra: Estamos na página do produto?
+        if not page.locator("div#dp").is_visible() and not page.locator("#productTitle").is_visible():
+             print("⚠️ Talvez não tenha entrado na página do produto. Tentando continuar...")
+        
         # Interação com SiteStripe
         print("🔗 Obtendo link...")
         
         try:
-            # Seletores possíveis para o botão de texto
-            sitestripe_btn = page.locator("#amzn-ss-text-link-icon")
+            # Seletores possíveis para o botão de texto/Obter link
+            # Prioridade para o botão amarelo explícito "Obter link" que o usuário relatou
+            sitestripe_btn = page.locator("a:has-text('Obter link')").or_(page.locator("button:has-text('Obter link')"))
+            
+            if not sitestripe_btn.count() or not sitestripe_btn.is_visible():
+                 # Fallbacks antigos
+                 sitestripe_btn = page.locator("#amzn-ss-text-link-icon")
             
             if not sitestripe_btn.count():
                  sitestripe_btn = page.locator("a[title='Texto']")
-            
-            if not sitestripe_btn.count():
-                 # Tenta achar por texto aproximado no container do stripe
-                 sitestripe_btn = page.locator("#amzn-ss-text-link span >> text=Texto")
 
-            sitestripe_btn.first.wait_for(state="visible", timeout=10000)
-            sitestripe_btn.first.click()
-            
-            # Espera o painel
-            link_area = page.locator("#amzn-ss-text-shortlink-textarea")
-            link_area.wait_for(state="visible", timeout=10000)
-            
-            # Pega o valor
-            short_link = link_area.input_value()
-            
-            if short_link:
-                print(f"✅ Link gerado: {short_link}")
-                return short_link
+            if sitestripe_btn.count():
+                sitestripe_btn.first.wait_for(state="visible", timeout=10000)
+                sitestripe_btn.first.click()
+                
+                # Espera o painel
+                # A área do link pode variar. Geralmente é #amzn-ss-text-shortlink-textarea
+                # Mas as vezes pode ser um outro container se o layout mudou.
+                link_area = page.locator("#amzn-ss-text-shortlink-textarea")
+                try:
+                    link_area.wait_for(state="visible", timeout=5000)
+                except:
+                    # Tenta clicar em "Texto" dentro do menu se "Obter link" abriu um menu geral
+                    print("⚠️ Painel direto não abriu, tentando submenu Texto...")
+                    submenu_text = page.locator("#amzn-ss-text-link span").first
+                    if submenu_text.is_visible():
+                        submenu_text.click()
+                        link_area.wait_for(state="visible", timeout=5000)
+
+                # Pega o valor
+                short_link = link_area.input_value()
+                
+                if short_link:
+                    print(f"✅ Link gerado: {short_link}")
+                    return short_link
+                else:
+                    print("❌ Link vazio.")
+                    page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"empty_link_{query}.png"))
+                    return ""
             else:
-                print("❌ Link vazio.")
-                page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"empty_link_{query}.png"))
-                return ""
+                 print("⚠️ Botão SiteStripe não encontrado nesta página.")
+                 page.screenshot(path=os.path.join(ERROR_SCREENSHOT_DIR, f"no_sitestripe_btn_{query}.png"))
+                 return ""
                 
         except Exception as e:
             print(f"⚠️ Falha no SiteStripe: {e}")
