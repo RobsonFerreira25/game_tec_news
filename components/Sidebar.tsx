@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
                                     showCredit={false}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                                     onError={(e) => {
-                                        (e.target as HTMLImageElement).src = "https://m.media-amazon.com/images/I/61GywIq-pwL._AC_SL1500_.jpg";
+                                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80";
                                     }}
                                 />
                             </div>
@@ -60,9 +60,9 @@ const Sidebar: React.FC = () => {
                 </h3>
                 <div className="bg-slate-50 dark:bg-white/5 rounded-xl p-4 border border-slate-100 dark:border-white/5">
                     <ImageWithCredit
-                        src="https://picsum.photos/id/30/400/250"
-                        alt="Monitor Review"
-                        credit="Divulgação"
+                        src="https://m.media-amazon.com/images/I/61GywIq-pwL._AC_SL1500_.jpg"
+                        alt="Produto Recomendado"
+                        credit="Amazon"
                         showCredit={false}
                         className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all"
                     />
