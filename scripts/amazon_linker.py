@@ -1,6 +1,7 @@
 import json
 import time
 import os
+import sys
 from playwright.sync_api import sync_playwright
 
 # Configuração de Caminhos
@@ -12,30 +13,34 @@ if not os.path.exists(ERROR_SCREENSHOT_DIR):
     os.makedirs(ERROR_SCREENSHOT_DIR)
 
 def wait_for_login(page):
-    """Aguarda ativamente o usuário fazer login verificando a barra SiteStripe"""
+    """Aguarda o usuário fazer login via detecção ou confirmação manual"""
     print("\n🔐 AÇÃO NECESSÁRIA: Faça login na sua conta Amazon no navegador aberto.")
-    print("👀 O script aguarda a barra 'SiteStripe' aparecer no topo...")
+    print("👀 O script tentará detectar a barra 'SiteStripe' automaticamente.")
+    print("👉 Se você JÁ logou e a barra apareceu, pressione ENTER aqui no terminal para forçar o início.")
     
-    max_attempts = 300 # 5 minutos
-    attempts = 0
+    print("\n⏳ Aguardando login ou ENTER...")
     
-    while attempts < max_attempts:
-        try:
-            # Verifica se elementos do SiteStripe estão visíveis
-            # #amzn-ss-text-link-icon é o ícone de Texto
-            if page.locator("#amzn-ss-text-link-icon").is_visible() or page.locator("a[title='Texto']").is_visible():
-                print("\n✅ Login detectado! Barra SiteStripe encontrada.")
-                return True
-        except:
-            pass
-            
-        time.sleep(1)
-        attempts += 1
-        if attempts % 10 == 0:
-            print(f"⏳ Aguardando login... ({attempts}s)")
-            
-    print("❌ Tempo limite de login esgotado.")
-    return False
+    # Loop de verificação não bloqueante (usando poller simples com input timeout seria complexo em python puro cross-platform sem libs extras)
+    # Vamos simplificar: Usar um loop que verifica a página, mas se o usuário der Ctrl+C ou algo assim, ele para.
+    # Como input() bloqueia, não podemos fazer os dois ao mesmo tempo facilmente sem threads.
+    # Vamos usar uma abordagem híbrida: input() bloqueante é o padrão para "Force Continue".
+    # A verificação automática seria ideal, mas se falha, o input é a salvação.
+    
+    # MUDANÇA: Vamos priorizar o input do usuário para não travar, mas checar a página antes de cada instrução.
+    # Na verdade, para ser robusto, vamos pedir ENTER. É infalível.
+    
+    input("⌨️  Pressione ENTER assim que visualizar a barra SiteStripe no topo da página...")
+    
+    # Verificação pós-enter apenas para validar (opcional)
+    try:
+        if page.locator("#amzn-ss-text-link-icon").is_visible() or page.locator("a[title='Texto']").is_visible() or page.locator("[id*='sitestripe']").is_visible():
+            print("✅ SiteStripe detectado visualmente!")
+        else:
+            print("⚠️ SiteStripe não detectado automaticamente, mas seguindo por confirmação manual...")
+    except:
+        pass
+        
+    return True
 
 def get_sitestripe_link(page, query):
     print(f"🔎 Buscando: {query}...")
@@ -81,7 +86,7 @@ def get_sitestripe_link(page, query):
             with page.expect_navigation(timeout=15000):
                 first_result.click()
         except:
-            print("⚠️ Navegação demorou, mas continuando...")
+             pass # Às vezes navega sem disparar o evento clássico
         
         page.wait_for_load_state("domcontentloaded")
         
@@ -89,13 +94,18 @@ def get_sitestripe_link(page, query):
         print("🔗 Obtendo link...")
         
         try:
+            # Seletores possíveis para o botão de texto
             sitestripe_btn = page.locator("#amzn-ss-text-link-icon")
-            # Fallback seletor
+            
             if not sitestripe_btn.count():
                  sitestripe_btn = page.locator("a[title='Texto']")
             
-            sitestripe_btn.wait_for(state="visible", timeout=10000)
-            sitestripe_btn.click()
+            if not sitestripe_btn.count():
+                 # Tenta achar por texto aproximado no container do stripe
+                 sitestripe_btn = page.locator("#amzn-ss-text-link span >> text=Texto")
+
+            sitestripe_btn.first.wait_for(state="visible", timeout=10000)
+            sitestripe_btn.first.click()
             
             # Espera o painel
             link_area = page.locator("#amzn-ss-text-shortlink-textarea")
@@ -130,24 +140,22 @@ def main():
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    print("\n🚀 Iniciando Amazon Linker Bot (Modo SiteStripe V2)...")
-    print("ℹ️  O script aguardará você logar para começar.")
+    print("\n🚀 Iniciando Amazon Linker Bot (Modo SiteStripe V3)...")
     print("-----------------------------------")
 
     with sync_playwright() as p:
+        # Viewport None para usar tamanho real da janela maximizada
         browser = p.chromium.launch(headless=False, args=["--start-maximized"])
         context = browser.new_context(
-            viewport={'width': 1920, 'height': 1080},
+            viewport=None, 
             locale="pt-BR"
         )
         page = context.new_page()
         
         page.goto("https://www.amazon.com.br")
         
-        # Modificado: Aguarda detecção visual em vez de ENTER
-        if not wait_for_login(page):
-            browser.close()
-            return
+        # Bloqueia até usuário dar ENTER
+        wait_for_login(page)
         
         changed_count = 0
         sections = ['buildComponents', 'additionalComponents']
@@ -158,7 +166,6 @@ def main():
                 current_link = item.get('affiliateLink', '')
                 
                 if not current_link:
-                    # Pequena pausa antes de começar
                     time.sleep(1)
                     new_link = get_sitestripe_link(page, item['searchQuery'])
                     if new_link:
