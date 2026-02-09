@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
+import pcBuildData from '../data/pc_build.json';
 
 interface ComponentItem {
     icon: string;
     name: string;
     searchQuery: string;
     category?: string;
+    affiliateLink?: string;
 }
 
 const PCBuildShowcase: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const buildComponents: ComponentItem[] = [
-        { icon: 'computer', name: 'AMD Ryzen 7 7800X3D', searchQuery: 'AMD Ryzen 7 7800X3D', category: 'Processador' },
-        { icon: 'videogame_asset', name: 'RTX 4070 Super 12GB', searchQuery: 'RTX 4070 Super 12GB', category: 'Placa de Vídeo' },
-        { icon: 'memory', name: '32GB DDR5 6000MHz', searchQuery: '32GB DDR5 6000MHz', category: 'Memória RAM' },
-        { icon: 'storage', name: '2TB Gen4 NVMe SSD', searchQuery: '2TB Gen4 NVMe SSD', category: 'Armazenamento' }
-    ];
-
+    // Casting para garantir tipagem correta vinda do JSON
+    const buildComponents: ComponentItem[] = pcBuildData.buildComponents;
     const fullBuildList: ComponentItem[] = [
-        ...buildComponents,
-        { icon: 'developer_board', name: 'B650M Wi-Fi DDR5', searchQuery: 'Placa Mãe B650M DDR5', category: 'Placa Mãe' },
-        { icon: 'mode_fan', name: 'Water Cooler 360mm ARGB', searchQuery: 'Water Cooler 360mm', category: 'Refrigeração' },
-        { icon: 'power', name: 'Fonte 850W 80 Plus Gold', searchQuery: 'Fonte 850W Gold', category: 'Fonte' },
-        { icon: 'cases', name: 'Gabinete Mid Tower Mesh', searchQuery: 'Gabinete Mid Tower Mesh', category: 'Gabinete' }
+        ...pcBuildData.buildComponents,
+        ...pcBuildData.additionalComponents
     ];
 
-    const handleSearch = (query: string) => {
-        window.open(`https://www.amazon.com.br/s?k=${encodeURIComponent(query)}`, '_blank');
+    const handleClick = (item: ComponentItem) => {
+        if (item.affiliateLink && item.affiliateLink.trim() !== "") {
+            window.open(item.affiliateLink, '_blank');
+        } else {
+            window.open(`https://www.amazon.com.br/s?k=${encodeURIComponent(item.searchQuery)}`, '_blank');
+        }
     };
 
     return (
@@ -47,7 +45,7 @@ const PCBuildShowcase: React.FC = () => {
                                     <span className="text-xs font-medium text-slate-200">{comp.name}</span>
                                 </div>
                                 <button
-                                    onClick={() => handleSearch(comp.searchQuery)}
+                                    onClick={() => handleClick(comp)}
                                     className="text-[9px] font-black text-primary hover:underline uppercase tracking-widest cursor-pointer"
                                 >
                                     Ver Preço
@@ -89,9 +87,9 @@ const PCBuildShowcase: React.FC = () => {
                                         <span className="text-sm font-bold text-white">{comp.name}</span>
                                     </div>
                                     <button
-                                        onClick={() => handleSearch(comp.searchQuery)}
+                                        onClick={() => handleClick(comp)}
                                         className="ml-2 w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-background-dark transition-all"
-                                        title="Ver Preço"
+                                        title={comp.affiliateLink ? "Comprar com Link de Afiliado" : "Pesquisar Preço"}
                                     >
                                         <span className="material-symbols-outlined text-sm font-bold">shopping_cart</span>
                                     </button>

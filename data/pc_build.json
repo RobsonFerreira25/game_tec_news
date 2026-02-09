@@ -1,0 +1,62 @@
+{
+    "buildComponents": [
+        {
+            "icon": "computer",
+            "name": "AMD Ryzen 7 7800X3D",
+            "searchQuery": "AMD Ryzen 7 7800X3D",
+            "category": "Processador",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "videogame_asset",
+            "name": "RTX 4070 Super 12GB",
+            "searchQuery": "RTX 4070 Super 12GB",
+            "category": "Placa de Vídeo",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "memory",
+            "name": "32GB DDR5 6000MHz",
+            "searchQuery": "32GB DDR5 6000MHz",
+            "category": "Memória RAM",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "storage",
+            "name": "2TB Gen4 NVMe SSD",
+            "searchQuery": "2TB Gen4 NVMe SSD",
+            "category": "Armazenamento",
+            "affiliateLink": ""
+        }
+    ],
+    "additionalComponents": [
+        {
+            "icon": "developer_board",
+            "name": "B650M Wi-Fi DDR5",
+            "searchQuery": "Placa Mãe B650M DDR5",
+            "category": "Placa Mãe",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "mode_fan",
+            "name": "Water Cooler 360mm ARGB",
+            "searchQuery": "Water Cooler 360mm",
+            "category": "Refrigeração",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "power",
+            "name": "Fonte 850W 80 Plus Gold",
+            "searchQuery": "Fonte 850W Gold",
+            "category": "Fonte",
+            "affiliateLink": ""
+        },
+        {
+            "icon": "cases",
+            "name": "Gabinete Mid Tower Mesh",
+            "searchQuery": "Gabinete Mid Tower Mesh",
+            "category": "Gabinete",
+            "affiliateLink": ""
+        }
+    ]
+}
