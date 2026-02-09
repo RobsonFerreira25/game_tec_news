@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     { name: 'Notícias', path: '/' },
     { name: 'Ofertas', path: '/ofertas' },
     { name: 'Reviews', path: '/review/logitech-g502' },
-    { name: 'Guias', path: '/' },
+    { name: 'Blog', path: '/blog' },
   ];
 
   return (

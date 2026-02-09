@@ -53,10 +53,10 @@ const Sidebar: React.FC = () => {
                 </Link>
             </section>
 
-            {/* Recommended For You */}
+            {/* Destaque no Blog */}
             <section className="bg-white dark:bg-card-dark border border-slate-200 dark:border-white/5 rounded-xl p-5 shadow-sm">
                 <h3 className="font-display font-bold text-xl uppercase tracking-tight mb-5 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary fill-current">auto_awesome</span> Para Você
+                    <span className="material-symbols-outlined text-secondary fill-current">article</span> Destaque no Blog
                 </h3>
                 <div className="bg-slate-50 dark:bg-white/5 rounded-xl p-4 border border-slate-100 dark:border-white/5">
                     <ImageWithCredit

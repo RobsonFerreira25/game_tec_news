@@ -1,0 +1,82 @@
+{
+    "posts": [
+        {
+            "id": "1",
+            "title": "Como Escolher o Melhor Headset Gamer para PS5",
+            "slug": "melhor-headset-gamer-ps5",
+            "excerpt": "Descubra os principais critérios para escolher o headset perfeito para sua experiência de jogo no PlayStation 5.",
+            "image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "Redação Gametech",
+            "date": "2026-02-09",
+            "category": "Periféricos",
+            "readTime": "5 min",
+            "content": "<p>O áudio é um dos elementos mais importantes para uma experiência imersiva nos jogos...</p>"
+        },
+        {
+            "id": "2",
+            "title": "Top 10 Jogos Mais Aguardados de 2026",
+            "slug": "jogos-mais-aguardados-2026",
+            "excerpt": "Confira nossa lista com os lançamentos mais esperados pelos gamers para este ano.",
+            "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "João Tech",
+            "date": "2026-02-08",
+            "category": "Games",
+            "readTime": "8 min",
+            "content": "<p>2026 promete ser um ano incrível para os gamers...</p>"
+        },
+        {
+            "id": "3",
+            "title": "Guia Completo: Montando seu Primeiro PC Gamer",
+            "slug": "guia-montar-pc-gamer",
+            "excerpt": "Passo a passo completo para montar seu PC gamer sem erros e economizando.",
+            "image": "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "Maria Silva",
+            "date": "2026-02-07",
+            "category": "Hardware",
+            "readTime": "12 min",
+            "content": "<p>Montar um PC gamer pode parecer intimidador no início...</p>"
+        },
+        {
+            "id": "4",
+            "title": "RTX 5090 vs RTX 4090: Vale a Pena o Upgrade?",
+            "slug": "rtx-5090-vs-4090-comparacao",
+            "excerpt": "Análise detalhada comparando as duas gerações de placas de vídeo da NVIDIA.",
+            "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "Pedro Gamer",
+            "date": "2026-02-06",
+            "category": "Hardware",
+            "readTime": "10 min",
+            "content": "<p>A NVIDIA lançou recentemente a RTX 5090...</p>"
+        },
+        {
+            "id": "5",
+            "title": "Melhores Configurações para CS2 em 2026",
+            "slug": "melhores-configuracoes-cs2",
+            "excerpt": "Otimize seu Counter-Strike 2 para máximo desempenho e competitividade.",
+            "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "Redação Gametech",
+            "date": "2026-02-05",
+            "category": "E-Sports",
+            "readTime": "6 min",
+            "content": "<p>Counter-Strike 2 trouxe diversas mudanças...</p>"
+        },
+        {
+            "id": "6",
+            "title": "Review: Monitor LG UltraGear 27\" 240Hz",
+            "slug": "review-monitor-lg-ultragear",
+            "excerpt": "Testamos o novo monitor gamer da LG com taxa de atualização de 240Hz.",
+            "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80",
+            "imgCredit": "Unsplash",
+            "author": "João Tech",
+            "date": "2026-02-04",
+            "category": "Reviews",
+            "readTime": "7 min",
+            "content": "<p>O LG UltraGear é um dos monitores mais populares...</p>"
+        }
+    ]
+}
