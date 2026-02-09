@@ -1,5 +1,29 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="8" fill="#0A0A0C"/>
-  <path d="M10 12C10 10.8954 10.8954 10 12 10H20C21.1046 10 22 10.8954 22 12V14H19V13H13V19H17V17H15V14H22V20C22 21.1046 21.1046 22 20 22H12C10.8954 22 10 21.1046 10 20V12Z" fill="#00F2FF"/>
-  <path d="M20 7H24V9H22V25H20V9H18V7H20Z" fill="#7000FF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#0a0a0c"/>
+  
+  <!-- Outer glow -->
+  <rect width="64" height="64" rx="12" fill="url(#glow)" opacity="0.3"/>
+  
+  <!-- G letter shape with neon effect -->
+  <path d="M 32 14 L 50 14 L 50 20 L 38 20 L 38 28 L 48 28 L 48 34 L 38 34 L 38 44 L 50 44 L 50 50 L 32 50 L 32 44 L 26 44 L 26 34 L 32 34 L 32 28 L 20 28 L 20 20 L 32 20 Z" 
+        fill="url(#gradient)" 
+        stroke="url(#gradient)" 
+        stroke-width="1"/>
+  
+  <!-- Accent line -->
+  <line x1="14" y1="32" x2="22" y2="32" stroke="#00f2ff" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Defs -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f2ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7000ff;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="glow">
+      <stop offset="0%" style="stop-color:#00f2ff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#7000ff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
 </svg>
