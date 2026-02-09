@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
                                     showCredit={false}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                                     onError={(e) => {
-                                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80";
+                                        (e.target as HTMLImageElement).src = "https://images-na.ssl-images-amazon.com/";
                                     }}
                                 />
                             </div>
