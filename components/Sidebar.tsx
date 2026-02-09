@@ -27,6 +27,7 @@ const Sidebar: React.FC = () => {
                                     src={item.image}
                                     alt={item.title}
                                     credit={item.imgCredit}
+                                    showCredit={false}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                                     onError={(e) => {
                                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80";
@@ -62,6 +63,7 @@ const Sidebar: React.FC = () => {
                         src="https://picsum.photos/id/30/400/250"
                         alt="Monitor Review"
                         credit="Divulgação"
+                        showCredit={false}
                         className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all"
                     />
                     <h4 className="font-bold text-base mb-2">Alienware AW3423DW QD-OLED</h4>

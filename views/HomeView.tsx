@@ -66,6 +66,7 @@ const HomeView: React.FC = () => {
                       src={news.img}
                       alt={news.title}
                       credit={news.imgCredit}
+                      showCredit={false}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = `https://ovicio.com.br/wp-content/uploads/2026/02/20260203-nioh-3-screenshot-kunimatsu-2-1536x864.jpg`;
@@ -98,6 +99,7 @@ const HomeView: React.FC = () => {
                       src={item.img}
                       alt={item.title}
                       credit={item.imgCredit}
+                      showCredit={false}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=400&q=80";

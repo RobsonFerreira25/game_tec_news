@@ -53,6 +53,7 @@ const DealsView: React.FC = () => {
                                 src={deal.image}
                                 alt={deal.title}
                                 credit={deal.imgCredit}
+                                showCredit={false}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80";

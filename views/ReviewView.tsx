@@ -166,6 +166,7 @@ const ReviewView: React.FC = () => {
                                             src={p.img}
                                             alt={p.name}
                                             credit="Divulgação"
+                                            showCredit={false}
                                             className="w-full h-full object-contain group-hover:scale-110 transition-all duration-500"
                                         />
                                     </div>
@@ -228,6 +229,7 @@ const ReviewView: React.FC = () => {
                                 src="https://picsum.photos/id/107/400/600"
                                 alt="Promo"
                                 credit="Promo / Divulgação"
+                                showCredit={false}
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                             />
                         </div>
