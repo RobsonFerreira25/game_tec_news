@@ -8,6 +8,7 @@ import ReviewView from './views/ReviewView';
 import NewsView from './views/NewsView';
 import DealsView from './views/DealsView';
 import BlogView from './views/BlogView';
+import BlogPostView from './views/BlogPostView';
 import { useAuth } from './context/AuthContext';
 import AuthModal from './components/AuthModal';
 
@@ -40,7 +41,7 @@ const App: React.FC = () => {
           <Route path="/noticia/:slug" element={<NewsView />} />
           <Route path="/ofertas" element={<DealsView />} />
           <Route path="/blog" element={<BlogView />} />
-          <Route path="/blog/:slug" element={<NewsView />} />
+          <Route path="/blog/:slug" element={<BlogPostView />} />
         </Routes>
       </main>
 
