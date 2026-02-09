@@ -35,7 +35,7 @@ const PCBuildShowcase: React.FC = () => {
                 </div>
                 <div className="relative z-10">
                     <h2 className="font-display text-2xl font-bold text-white mb-2 uppercase tracking-tight">PC Gamer do Mês</h2>
-                    <p className="text-slate-400 text-sm md:text-base mb-8 max-w-lg font-medium">Nosso setup "Mestre do Custo-Benefício" otimizado para 1440p em altas taxas de quadros. Custo total: <span className="text-primary font-bold">R$ 6.250</span></p>
+                    <p className="text-slate-400 text-sm md:text-base mb-8 max-w-lg font-medium">Nosso setup "Mestre do Custo-Benefício" otimizado para 1440p em altas taxas de quadros. Custo total aproximado: <span className="text-primary font-bold">R$ 6.250</span></p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {buildComponents.map((comp, i) => (
