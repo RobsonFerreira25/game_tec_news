@@ -72,9 +72,9 @@ const Sidebar: React.FC = () => {
                         <span className="material-symbols-outlined text-sm font-bold">star_half</span>
                         <span className="text-[10px] text-slate-400 font-bold ml-1 tracking-widest">(4.8/5)</span>
                     </div>
-                    <Link to="/review/alienware" className="w-full bg-secondary text-white font-black py-2.5 rounded uppercase text-[10px] tracking-widest hover:brightness-110 active:scale-95 transition-all block text-center shadow-lg">
-                        Ler Review Completo
-                    </Link>
+                    <a href="https://amzn.to/4ra9lpt" target="_blank" rel="noopener noreferrer" className="w-full bg-[#ff9900] hover:bg-[#e68a00] text-white font-black py-2.5 rounded uppercase text-[10px] tracking-widest hover:brightness-110 active:scale-95 transition-all block text-center shadow-lg">
+                        Ver na Amazon
+                    </a>
                 </div>
             </section>
 
