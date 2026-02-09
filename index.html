@@ -52,34 +52,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            primary: "#00f2ff",
-            secondary: "#7000ff",
-            "background-dark": "#0a0a0c",
-            "card-dark": "#16161e",
-            "accent-orange": "#ff4d00",
-          },
-          fontFamily: {
-            display: ["Rajdhani", "sans-serif"],
-            sans: ["Inter", "sans-serif"],
-            grotesk: ["Space Grotesk", "sans-serif"],
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0', transform: 'scale(0.95)' },
-              '100%': { opacity: '1', transform: 'scale(1)' },
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00f2ff",
+              secondary: "#7000ff",
+              "background-dark": "#0a0a0c",
+              "card-dark": "#16161e",
+              "accent-orange": "#ff4d00",
+            },
+            fontFamily: {
+              display: ["Rajdhani", "sans-serif"],
+              sans: ["Inter", "sans-serif"],
+              grotesk: ["Space Grotesk", "sans-serif"],
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              }
+            },
+            animation: {
+              fadeIn: 'fadeIn 0.2s ease-out',
             }
           },
-          animation: {
-            fadeIn: 'fadeIn 0.2s ease-out',
-          }
         },
-      },
-    };
+      };
+    }
   </script>
   <style>
     .material-symbols-outlined {
