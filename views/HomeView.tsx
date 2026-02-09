@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import newsData from '../data/news.json';
 import ImageWithCredit from '../components/ImageWithCredit';
+import PCBuildShowcase from '../components/PCBuildShowcase';
 
 const HomeView: React.FC = () => {
   const { featured, latest, mini } = newsData;
@@ -120,36 +121,7 @@ const HomeView: React.FC = () => {
           </div>
 
           {/* PC Gamer Section */}
-          <section className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 md:p-8 rounded-2xl border border-primary/20 relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 p-4">
-              <span className="material-symbols-outlined text-primary text-6xl md:text-7xl opacity-10">hardware</span>
-            </div>
-            <div className="relative z-10">
-              <h2 className="font-display text-2xl font-bold text-white mb-2 uppercase tracking-tight">PC Gamer do Mês</h2>
-              <p className="text-slate-400 text-sm md:text-base mb-8 max-w-lg font-medium">Nosso setup \"Mestre do Custo-Benefício\" otimizado para 1440p em altas taxas de quadros. Custo total: <span className="text-primary font-bold">R$ 6.250</span></p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  { icon: 'computer', name: 'AMD Ryzen 7 7800X3D' },
-                  { icon: 'videogame_asset', name: 'RTX 4070 Super 12GB' },
-                  { icon: 'memory', name: '32GB DDR5 6000MHz' },
-                  { icon: 'storage', name: '2TB Gen4 NVMe SSD' }
-                ].map((comp, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 hover:border-primary/30 transition-all group">
-                    <div className="flex items-center gap-3">
-                      <span className="material-symbols-outlined text-sm text-slate-400 group-hover:text-primary transition-colors">{comp.icon}</span>
-                      <span className="text-xs font-medium text-slate-200">{comp.name}</span>
-                    </div>
-                    <a href="#" className="text-[9px] font-black text-primary hover:underline uppercase tracking-widest">Ver Preço</a>
-                  </div>
-                ))}
-              </div>
-
-              <button className="mt-8 w-full bg-primary text-background-dark font-black py-4 rounded uppercase tracking-[0.2em] text-[10px] md:text-xs hover:brightness-110 active:scale-95 transition-all shadow-lg">
-                Ver Lista Completa de Componentes
-              </button>
-            </div>
-          </section>
+          <PCBuildShowcase />
         </div>
 
         <Sidebar />
