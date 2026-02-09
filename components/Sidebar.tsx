@@ -66,7 +66,7 @@ const Sidebar: React.FC = () => {
                         showCredit={false}
                         className="w-full rounded-lg mb-4 shadow-lg group-hover:scale-105 transition-all"
                     />
-                    <h4 className="font-bold text-base mb-2">Alienware AW3423DW QD-OLED</h4>
+                    <h4 className="font-bold text-base mb-2">HyperX Cloud Stinger 2 Core PS5</h4>
                     <div className="flex items-center gap-1 text-yellow-500 mb-4">
                         {[1, 2, 3, 4].map(s => <span key={s} className="material-symbols-outlined text-sm font-bold fill-current">star</span>)}
                         <span className="material-symbols-outlined text-sm font-bold">star_half</span>
