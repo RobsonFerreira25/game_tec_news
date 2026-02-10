@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
                                     alt={item.title}
                                     credit={item.imgCredit}
                                     showCredit={false}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                                    className="w-full h-full object-contain group-hover:scale-110 transition-transform p-1"
                                     onError={(e) => {
                                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80";
                                     }}
