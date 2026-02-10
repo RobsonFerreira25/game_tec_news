@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import dealsData from '../data/deals.json';
 import ImageWithCredit from './ImageWithCredit';
-import AdSense from './AdSense';
 
 const Sidebar: React.FC = () => {
     const hotDeals = dealsData.slice(0, 2);
@@ -97,9 +96,6 @@ const Sidebar: React.FC = () => {
                 </form>
                 <p className="text-[9px] mt-6 font-black opacity-50 uppercase tracking-widest">Sem spam. Apenas hardware com alto FPS. Cancele quando quiser.</p>
             </section>
-
-            {/* Google AdSense - Vertical */}
-            <AdSense slot="1122334455" format="auto" />
 
             {/* Ranking */}
             <section>
