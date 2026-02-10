@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface AdSenseProps {
     slot: string;
@@ -8,13 +8,29 @@ interface AdSenseProps {
 }
 
 const AdSense: React.FC<AdSenseProps> = ({ slot, style, format = 'auto', responsive = 'true' }) => {
+    const initialized = useRef(false);
+
     useEffect(() => {
-        try {
-            // @ts-ignore
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (err) {
-            console.error('AdSense error:', err);
-        }
+        // Defensive check to prevent double-initialization in Strict Mode
+        if (initialized.current) return;
+
+        const loadAd = () => {
+            try {
+                // @ts-ignore
+                if (window.adsbygoogle) {
+                    // @ts-ignore
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    initialized.current = true;
+                }
+            } catch (err) {
+                console.error('AdSense error:', err);
+            }
+        };
+
+        // Delay execution slightly to ensure DOM is ready and not blocking main thread
+        const timer = setTimeout(loadAd, 500);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
