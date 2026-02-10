@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import blogData from '../data/blog.json';
 import ImageWithCredit from '../components/ImageWithCredit';
 import CommentsSection from '../components/CommentsSection';
+import AdSense from '../components/AdSense';
 
 interface BlogPost {
     id: string;
@@ -87,11 +88,7 @@ const BlogPostView: React.FC = () => {
                         </div>
 
                         {/* Google AdSense - Top */}
-                        <div className="my-8">
-                            <div className="bg-slate-100 dark:bg-white/5 border-2 border-dashed border-slate-300 dark:border-white/10 rounded-xl p-8 text-center">
-                                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Google AdSense - Banner Horizontal</span>
-                            </div>
-                        </div>
+                        <AdSense slot="1234567890" />
 
                         {/* Article Content */}
                         <div
@@ -112,11 +109,7 @@ const BlogPostView: React.FC = () => {
                         />
 
                         {/* Google AdSense - Bottom */}
-                        <div className="my-8">
-                            <div className="bg-slate-100 dark:bg-white/5 border-2 border-dashed border-slate-300 dark:border-white/10 rounded-xl p-8 text-center">
-                                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Google AdSense - Banner Horizontal</span>
-                            </div>
-                        </div>
+                        <AdSense slot="0987654321" />
 
                         {/* Related Posts */}
                         <section className="mt-12 pt-8 border-t border-slate-200 dark:border-white/5">
